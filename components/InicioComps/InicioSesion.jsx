@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView,TextInput,Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { IdContext } from '../../Context/IdContext';
+
 export const InicioSesion = () => {
     const navigation = useNavigation();
     const [user, setUser] = useState('');

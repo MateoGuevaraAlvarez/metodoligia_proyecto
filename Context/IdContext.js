@@ -1,6 +1,15 @@
-import React, {createContext,useContext} from 'react';
+import React, { createContext, useState } from 'react';
+
+// Crea el contexto
 export const IdContext = createContext();
-export const IdProvider = (props) => {
-    const [UserId, setUserId] = useState('');
-    return <IdContext.Provider value={[UserId, setUserId]}>{props.children}</IdContext.Provider>;
-}
+
+// Proveedor del contexto
+export const IdProvider = ({ children }) => {
+    const [userId, setUserId] = useState(null);
+
+    return (
+        <IdContext.Provider value={{ userId, setUserId }}>
+            {children}
+        </IdContext.Provider>
+    );
+};

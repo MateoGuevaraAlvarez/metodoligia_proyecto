@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { IdProvider } from './Context/IdContext';
 import { HomePage } from "./components/Hompagecomps/Homepage";
 import { Planta } from "./components/Hompagecomps/planta";
 import { InicioSesion } from "./components/InicioComps/InicioSesion";
@@ -9,6 +10,7 @@ console.log("App.js is running");
 
 const App = () => {
     return (
+        <IdProvider>
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Login">
                 <Stack.Screen
@@ -25,6 +27,7 @@ const App = () => {
                 />
             </Stack.Navigator>
         </NavigationContainer>
+        </IdProvider>
     );
 };
 
