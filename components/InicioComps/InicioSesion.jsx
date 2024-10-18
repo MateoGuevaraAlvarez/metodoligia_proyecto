@@ -9,23 +9,24 @@ export const InicioSesion = () => {
     const [password, setPassword] = useState('');
     const { setUserId } = React.useContext(IdContext);
     const handleLoginPress = async () => {
+        console.log(user, password)
         try {
-            const response = await fetch('https://api.example.com/login', { // Aquí iría la URL de tu API
+            const response = await fetch('http://10.2.66.154:8080/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ Usuario: user, Contraseña: password }),
+                body: JSON.stringify({ username: user, password: password }),
             });
             const data = await response.json();
-            console.log(data);
-            setUserId(data.id);
+            if (response.ok) {
+                console.log(data);
+                setUserId(data.id);
+                navigation.navigate('Home');
+            }
+        } catch (error) {
+            alert("Usuario o contraseña incorrectos");
         }
-        catch (error) {
-            console.error(error);
-        }
-        // Redirigir a la pantalla de homepage
-        navigation.navigate('Home');
     };
     return (
         <View style={styles.container}>
@@ -104,5 +105,5 @@ const styles = StyleSheet.create({
         height: 32,
         borderRadius: 5,
         marginTop: 24,
-      },
+    },
 });

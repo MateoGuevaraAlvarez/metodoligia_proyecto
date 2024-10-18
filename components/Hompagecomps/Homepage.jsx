@@ -2,43 +2,44 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { IdContext } from '../../Context/IdContext';
+import { set } from 'date-fns';
 
 export const HomePage = () => {
     const { userId } = React.useContext(IdContext);
     const navigation = useNavigation();
     const [plants, setPlants] = useState([]);
 
-    //const fetchData = async () => {
-    //     try {
-    //      const response = await fetch('https://api.example.com/plants', { // Aquí iría la URL de tu API
-    //           method: 'GET',
-    //           headers: {
-    //               'Content-Type': 'application/json',
-    //           },
-    //          body: JSON.stringify({ IdUsuario: userId })
-    //     });
-    //    const data = await response.json();
-    //    setPlants(data); // Guardamos los datos obtenidos en el estado
-    //  } catch (error) {
-    //     console.error(error);
-    // }
-    //};
-    const examplePlant = [
-        {
-            name: "Epipremnum aureum",
-            species: "Pothos",
-            status: "Sano"
-        },
-        {
-            name: "Sansevieria trifasciata",
-            species: "Lengua de tigre",
-            status: "Necesita agua"
+    const fetchData = async () => {
+        try {
+            const response = await fetch('http://10.2.66.154:8080/plants', { // Aquí iría la URL de tu API
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'user_id': userId.toString(),
+                },
+            });
+            const data = await response.json();
+            console.log (data);
+            setPlants(data); // Guardamos los datos obtenidos en el estado
+        } catch (error) {
+            console.error(error);
         }
-    ];
+    };
 
     useEffect(() => {
-        // Para probar cómo se ven las tarjetas de plantas
-        setPlants(examplePlant);
+        fetchData();
+        //implementacion websocket para actualizacion en tiempo real, no se si va a pasar
+    //    const socket = new WebSocket('ws://http://10.2.66.154:8080/plants');
+    //    socket.onmessage = (event) => {
+    //        const updatedPlants = JSON.parse(event.data);
+    //        setPlants(updatedPlants);
+    //    }
+    //    socket.onerror = (error) => {
+    //        console.error(error);
+    //    }
+    //    return () => {
+    //        socket.close();
+    //    };
     }, [])
 
     return (
