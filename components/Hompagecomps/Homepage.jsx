@@ -19,8 +19,26 @@ export const HomePage = () => {
                 },
             });
             const data = await response.json();
-            console.log (data);
+            console.log(data);
             setPlants(data); // Guardamos los datos obtenidos en el estado
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    const fetchAlert = async () => {
+        try {
+            const response = await fetch('', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'user_id': userId.toString(),
+                },
+            });
+            const data = await response.json();
+            console.log(data);
+            if (response.ok){
+                alert(data.message); //cambiar message
+            }
         } catch (error) {
             console.error(error);
         }
@@ -28,18 +46,11 @@ export const HomePage = () => {
 
     useEffect(() => {
         fetchData();
-        //implementacion websocket para actualizacion en tiempo real, no se si va a pasar
-    //    const socket = new WebSocket('ws://http://10.2.66.154:8080/plants');
-    //    socket.onmessage = (event) => {
-    //        const updatedPlants = JSON.parse(event.data);
-    //        setPlants(updatedPlants);
-    //    }
-    //    socket.onerror = (error) => {
-    //        console.error(error);
-    //    }
-    //    return () => {
-    //        socket.close();
-    //    };
+        const interval = setInterval(() => {
+            fetchAlert();
+        }, 50000);
+        return () => clearInterval(interval);
+        
     }, [])
 
     return (
