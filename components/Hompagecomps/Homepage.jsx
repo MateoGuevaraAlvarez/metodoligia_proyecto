@@ -11,7 +11,7 @@ export const HomePage = () => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch('http://10.2.66.154:8080/plants', { // Aquí iría la URL de tu API
+            const response = await fetch('http://10.2.66.124:8080/plants', { // Aquí iría la URL de tu API
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export const HomePage = () => {
     };
     const fetchAlert = async () => {
         try {
-            const response = await fetch('', {
+            const response = await fetch('http://10.2.66.124:8080/getalert', { //poner la url de la api
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ export const HomePage = () => {
             });
             const data = await response.json();
             console.log(data);
-            if (response.ok){
+            if (response.ok && data != '') {  
                 alert(data.message); //cambiar message
             }
         } catch (error) {
@@ -48,9 +48,9 @@ export const HomePage = () => {
         fetchData();
         const interval = setInterval(() => {
             fetchAlert();
-        }, 50000);
+        }, 20000);
         return () => clearInterval(interval);
-        
+
     }, [])
 
     return (

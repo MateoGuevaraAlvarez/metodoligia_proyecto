@@ -11,7 +11,7 @@ export const InicioSesion = () => {
     const handleLoginPress = async () => {
         console.log(user, password)
         try {
-            const response = await fetch('http://10.2.66.154:8080/login', {
+            const response = await fetch('http://10.2.66.124:8080/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
