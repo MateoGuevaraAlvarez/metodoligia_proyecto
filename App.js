@@ -29,7 +29,7 @@ const App = () => {
                                 color: "white",
                             },
                             title: "Mis Plantas",
-                            headerLeft: () => null,
+                            headerShown: false,
                         }}
                     />
                 </Stack.Navigator>
